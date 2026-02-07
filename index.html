@@ -102,19 +102,25 @@ for (let i = 0; i < 20; i++) {
 
 <script>
 function generateLink(){
-    const name = encodeURIComponent(document.getElementById("name").value);
+    const name = encodeURIComponent(document.getElementById("name").value.trim());
     const dob = document.getElementById("dob").value;
-    const msg = encodeURIComponent(document.getElementById("message").value);
+    const msg = encodeURIComponent(document.getElementById("message").value.trim());
 
-    if(!name){ alert("Enter name 💖"); return; }
+    if(!name){
+        alert("Enter name 💖");
+        return;
+    }
 
-    const link = `${window.location.origin}${window.location.pathname.replace("index.html","")}view.html?to=${name}&dob=${dob}&msg=${msg}`;
-    
+    // Base path auto-detect karega (local ya GitHub dono pe chalega)
+    const basePath = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
+
+    const link = basePath + `view.html?to=${name}&dob=${dob}&msg=${msg}`;
+
     const box = document.getElementById("resultBox");
     box.style.display="block";
-    box.innerHTML = "Here is your magical link ✨<br><br>"+link;
+    box.innerHTML = "Here is your magical link ✨<br><br><a href='"+link+"' target='_blank'>"+link+"</a>";
 }
 </script>
 
 </body>
-
+</html>
