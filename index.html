@@ -108,8 +108,8 @@ function generateLink(){
 
     if(!name){ alert("Enter name 💖"); return; }
 
-    const link = `view.html?to=${name}&dob=${dob}&msg=${msg}`;
-
+    const link = `${window.location.origin}${window.location.pathname.replace("index.html","")}view.html?to=${name}&dob=${dob}&msg=${msg}`;
+    
     const box = document.getElementById("resultBox");
     box.style.display="block";
     box.innerHTML = "Here is your magical link ✨<br><br>"+link;
@@ -117,3 +117,4 @@ function generateLink(){
 </script>
 
 </body>
+
