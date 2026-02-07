@@ -32,42 +32,8 @@ body {
     100% { transform: translateY(-10vh) scale(1.2); }
 }
 
-/* Name Screen */
-#loginBox {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-input {
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    text-align: center;
-}
-
-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #ff4d6d;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #e63956;
-}
-
 /* Love Book */
 #book {
-    display: none;
     width: 340px;
     height: 460px;
     background: #fff0f6;
@@ -82,25 +48,6 @@ button:hover {
 @keyframes openBook {
     from { transform: scale(0.5) rotateY(90deg); opacity: 0; }
     to { transform: scale(1) rotateY(0); opacity: 1; }
-}
-
-/* Front Cover Background */
-.cover {
-    background: url('https://i.imgur.com/3ZQ3Z4B.png') center/cover no-repeat;
-    height: 100%;
-    border-radius: 12px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    text-shadow: 2px 2px 8px black;
-    font-family: 'Great Vibes', cursive;
-}
-
-.cover h1 {
-    font-size: 42px;
-    margin: 0;
 }
 
 .dayTitle {
@@ -128,6 +75,21 @@ button:hover {
     font-size: 14px;
     color: #555;
 }
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e63956;
+}
 </style>
 </head>
 
@@ -139,37 +101,18 @@ button:hover {
 <div class="emoji" style="left:60%; animation-delay:4s;">💖</div>
 <div class="emoji" style="left:80%; animation-delay:1s;">💘</div>
 
-<!-- Name Input -->
-<div id="loginBox">
-    <h2>Enter Your Name 💌</h2>
-    <input type="text" id="nameInput" placeholder="Your Name">
-    <br>
-    <button onclick="checkName()">Open My Surprise 🎁</button>
-    <p id="error" style="color:red;"></p>
-</div>
-
 <!-- Love Book -->
 <div id="book">
-    <div id="coverPage" class="cover">
-        <h1>For Shweta ❤️</h1>
-        <p style="font-size:20px;">My Valentine Surprise</p>
-        <button onclick="startBook()">Open Book 📖</button>
-    </div>
-
-    <div id="contentPage" style="display:none;">
-        <div class="dayTitle" id="dayTitle"></div>
-        <div class="pageText" id="pageText"></div>
-        <div class="pageNumber" id="pageNumber"></div>
-        <button onclick="nextPage()">Next Page ➡️</button>
-    </div>
+    <div class="dayTitle" id="dayTitle"></div>
+    <div class="pageText" id="pageText"></div>
+    <div class="pageNumber" id="pageNumber"></div>
+    <button onclick="nextPage()">Next Page ➡️</button>
 </div>
 
 <!-- Romantic Music -->
-<audio id="bgMusic" src="romantic.mp3" loop></audio>
+<audio id="bgMusic" src="romantic.mp3" loop autoplay></audio>
 
 <script>
-const correctName = "shweta rathour";
-
 const pages = [
     {day:"🌹 Rose Day", text:"A rose for you, because your smile makes my world bloom."},
     {day:"💍 Propose Day", text:"If loving you is a dream, I never want to wake up."},
@@ -183,23 +126,6 @@ const pages = [
 
 let currentPage = 0;
 
-function checkName() {
-    const input = document.getElementById("nameInput").value.toLowerCase().trim();
-    if (input === correctName) {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("book").style.display = "block";
-        document.getElementById("bgMusic").play();
-    } else {
-        document.getElementById("error").innerText = "Only Shweta Rathour can open this 💖";
-    }
-}
-
-function startBook() {
-    document.getElementById("coverPage").style.display = "none";
-    document.getElementById("contentPage").style.display = "block";
-    showPage();
-}
-
 function showPage() {
     document.getElementById("dayTitle").innerText = pages[currentPage].day;
     document.getElementById("pageText").innerText = pages[currentPage].text;
@@ -212,11 +138,5 @@ function nextPage() {
         showPage();
     } else {
         document.getElementById("dayTitle").innerText = "💖 The End";
-        document.getElementById("pageText").innerText = "Valentine Week ends… but my love never will ❤️";
-        document.getElementById("pageNumber").innerText = "";
-    }
-}
-</script>
-
-</body>
-</html>
+        document.getElementById("pageText").innerText = "Valentine Week ends… but love never will ❤️";
+        document.getElementById("pageNumber").innerText = ""
