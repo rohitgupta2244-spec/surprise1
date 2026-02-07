@@ -21,7 +21,7 @@ body {
 .heart {
     position: absolute;
     color: #fff;
-    font-size: 20px;
+    font-size: 22px;
     animation: float 6s linear infinite;
 }
 @keyframes float {
@@ -30,6 +30,7 @@ body {
     100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
 }
 
+/* Box Style */
 .box {
     background: white;
     padding: 25px;
@@ -91,7 +92,7 @@ button:hover { background: #e63956; }
 
 <body>
 
-<!-- Floating hearts -->
+<!-- Floating Hearts -->
 <div class="heart" style="left:10%">❤️</div>
 <div class="heart" style="left:30%; animation-delay:2s;">💖</div>
 <div class="heart" style="left:60%; animation-delay:4s;">💘</div>
@@ -130,44 +131,44 @@ button:hover { background: #e63956; }
 const correctDOB = "1994-07-29";
 let userName = "";
 let currentPage = 0;
-</div>
-<script>
-const pages = [
-    {
-        day: "💖 My Valentine Wish",
-        text: "Is Valentine’s Day par bas ek hi wish hai — har saal, har din, har pal tum meri Valentine raho My Love ❤️"
-    },
 
 const pages = [
- {day:"💖 My Valentine Wish", text:"Har din tum meri Valentine raho ❤️"},
- {day:"🌹 Rose Day", text:"Your smile makes my world bloom."},
- {day:"💍 Propose Day", text:"I never want to wake up from loving you."},
- {day:"🍫 Chocolate Day", text:"Life with you is sweeter than chocolate."},
- {day:"🧸 Teddy Day", text:"I wish I could hug you right now."},
- {day:"🤝 Promise Day", text:"I promise to stay forever."},
- {day:"🤗 Hug Day", text:"One hug from you heals everything."},
- {day:"💋 Kiss Day", text:"Your kiss is pure magic."},
- {day:"❤️ Valentine’s Day", text:"You are my forever."}
+  {
+    day: "💖 My Valentine Wish",
+    text: "Is Valentine’s Day par bas ek hi wish hai — har saal, har din, har pal tum meri Valentine raho My Love ❤️"
+  },
+  {day:"🌹 Rose Day", text:"Your smile makes my world bloom."},
+  {day:"💍 Propose Day", text:"I never want to wake up from loving you."},
+  {day:"🍫 Chocolate Day", text:"Life with you is sweeter than chocolate."},
+  {day:"🧸 Teddy Day", text:"I wish I could hug you right now."},
+  {day:"🤝 Promise Day", text:"I promise to stay forever."},
+  {day:"🤗 Hug Day", text:"One hug from you heals everything."},
+  {day:"💋 Kiss Day", text:"Your kiss is pure magic."},
+  {day:"❤️ Valentine’s Day", text:"You are my forever."}
 ];
 
 function goToDOB(){
     userName = document.getElementById("nameInput").value.trim();
-    if(userName===""){ alert("Please enter name 💖"); return; }
+    if(userName === ""){
+        alert("Please enter name 💖");
+        return;
+    }
     document.getElementById("namePage").style.display="none";
     document.getElementById("dobPage").style.display="block";
 }
 
 function startBook(){
     const dob = document.getElementById("dobInput").value;
-    if(dob !== correctDOB){ alert("Wrong DOB 😜"); return; }
+    if(dob !== correctDOB){
+        alert("Wrong DOB 😜");
+        return;
+    }
 
     document.getElementById("dobPage").style.display="none";
     document.getElementById("book").style.display="block";
     document.getElementById("bookName").innerText = "For " + userName + " ❤️";
 
-    // ▶️ Play music after user click
     document.getElementById("bgMusic").play();
-
     showPage();
 }
 
