@@ -30,7 +30,7 @@ body {
     100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
 }
 
-/* Box Style */
+/* Box */
 .box {
     background: white;
     padding: 25px;
@@ -103,7 +103,7 @@ button:hover { background: #e63956; }
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Page 1: Name -->
+<!-- Name Page -->
 <div id="namePage" class="box">
     <h2>Enter Your Name 💌</h2>
     <input type="text" id="nameInput" placeholder="Your Sweet Name">
@@ -111,15 +111,15 @@ button:hover { background: #e63956; }
     <button onclick="goToDOB()">Next ➜</button>
 </div>
 
-<!-- Page 2: DOB -->
+<!-- DOB Page -->
 <div id="dobPage" class="box" style="display:none;">
-    <h2>Enter Your DOB 🎂</h2>
+    <h2>Select Your DOB 🎂</h2>
     <input type="date" id="dobInput">
     <br>
     <button onclick="startBook()">Open Surprise 🎁</button>
 </div>
 
-<!-- Valentine Book -->
+<!-- Book -->
 <div id="book" class="box">
     <div id="bookName" style="font-weight:bold;color:#c9184a;"></div>
     <div class="dayTitle" id="dayTitle"></div>
@@ -128,7 +128,6 @@ button:hover { background: #e63956; }
 </div>
 
 <script>
-const correctDOB = "YYYY-MM-DD";
 let userName = "";
 let currentPage = 0;
 
@@ -159,8 +158,8 @@ function goToDOB(){
 
 function startBook(){
     const dob = document.getElementById("dobInput").value;
-    if(dob !== correctDOB){
-        alert("Wrong DOB 😜");
+    if(dob === ""){
+        alert("Please select DOB 🎂");
         return;
     }
 
