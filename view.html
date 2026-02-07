@@ -19,7 +19,6 @@ body {
     overflow: hidden;
 }
 
-/* Floating Emojis */
 .emoji {
     position: absolute;
     font-size: 22px;
@@ -32,7 +31,6 @@ body {
     100% { transform: translateY(-10vh) scale(1.2); }
 }
 
-/* Love Book */
 #book {
     width: 340px;
     height: 460px;
@@ -77,13 +75,13 @@ body {
 }
 
 button {
-    margin-top: 15px;
-    padding: 10px 20px;
+    margin-top: 20px;
+    padding: 10px 18px;
     border: none;
     border-radius: 8px;
     background: #ff4d6d;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
 }
 
@@ -95,22 +93,17 @@ button:hover {
 
 <body>
 
-<!-- Floating Emojis -->
 <div class="emoji" style="left:10%">❤️</div>
 <div class="emoji" style="left:30%; animation-delay:2s;">🌹</div>
 <div class="emoji" style="left:60%; animation-delay:4s;">💖</div>
 <div class="emoji" style="left:80%; animation-delay:1s;">💘</div>
 
-<!-- Love Book -->
 <div id="book">
     <div class="dayTitle" id="dayTitle"></div>
     <div class="pageText" id="pageText"></div>
     <div class="pageNumber" id="pageNumber"></div>
-    <button onclick="nextPage()">Next Page ➡️</button>
+    <button id="nextBtn">Turn the page, my love ❤️</button>
 </div>
-
-<!-- Romantic Music -->
-<audio id="bgMusic" src="romantic.mp3" loop autoplay></audio>
 
 <script>
 const pages = [
@@ -129,7 +122,12 @@ let currentPage = 0;
 function showPage() {
     document.getElementById("dayTitle").innerText = pages[currentPage].day;
     document.getElementById("pageText").innerText = pages[currentPage].text;
-    document.getElementById("pageNumber").innerText = "Page " + (currentPage + 1) + " / " + pages.length;
+    document.getElementById("pageNumber").innerText =
+        "Page " + (currentPage + 1) + " / " + pages.length;
+
+    if (currentPage === pages.length - 1) {
+        document.getElementById("nextBtn").innerText = "Stay with me forever 💍❤️";
+    }
 }
 
 function nextPage() {
@@ -138,5 +136,16 @@ function nextPage() {
         showPage();
     } else {
         document.getElementById("dayTitle").innerText = "💖 The End";
-        document.getElementById("pageText").innerText = "Valentine Week ends… but love never will ❤️";
-        document.getElementById("pageNumber").innerText = ""
+        document.getElementById("pageText").innerText = "Valentine Week ends… but my love never will ❤️";
+        document.getElementById("pageNumber").innerText = "";
+        document.getElementById("nextBtn").style.display = "none";
+    }
+}
+
+document.getElementById("nextBtn").addEventListener("click", nextPage);
+
+window.onload = showPage;
+</script>
+
+</body>
+</html>
