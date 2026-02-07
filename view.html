@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Valentine Surprise ❤️</title>
+<title>Valentine Surprise ❤️</title>
 
 <style>
 body {
@@ -17,34 +17,57 @@ body {
     overflow: hidden;
 }
 
-.emoji {
+/* Floating Hearts */
+.heart {
     position: absolute;
-    font-size: 22px;
+    color: #fff;
+    font-size: 20px;
     animation: float 6s linear infinite;
-    opacity: 0.8;
 }
-
 @keyframes float {
-    0% { transform: translateY(100vh) scale(0.5); }
-    100% { transform: translateY(-10vh) scale(1.2); }
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
 }
 
-#book {
-    width: 340px;
-    height: 460px;
-    background: #fff0f6;
-    border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+.box {
+    background: white;
     padding: 25px;
+    border-radius: 15px;
     text-align: center;
-    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     animation: fadeIn 1s ease;
+    width: 320px;
 }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 85%;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+button:hover { background: #e63956; }
+
+#book { display: none; }
 
 .dayTitle {
     font-size: 22px;
@@ -54,61 +77,59 @@ body {
     background: #ffd6e0;
     padding: 6px;
     border-radius: 8px;
-    transition: all 0.4s ease;
 }
 
 .pageText {
     font-size: 19px;
     color: #66001f;
-    margin-top: 60px;
-    min-height: 140px;
+    margin-top: 40px;
+    min-height: 120px;
     font-weight: 600;
-    transition: opacity 0.4s ease;
-}
-
-.pageNumber {
-    position: absolute;
-    bottom: 15px;
-    right: 20px;
-    font-size: 14px;
-    color: #555;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    background: #ff4d6d;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-button:hover {
-    background: #e63956;
-    transform: scale(1.05);
-}
-
-.glow {
-    text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff99ac;
 }
 </style>
 </head>
 
 <body>
 
-<div class="emoji" style="left:10%">❤️</div>
-<div class="emoji" style="left:30%; animation-delay:2s;">🌹</div>
-<div class="emoji" style="left:60%; animation-delay:4s;">💖</div>
-<div class="emoji" style="left:80%; animation-delay:1s;">💘</div>
+<!-- Floating hearts -->
+<div class="heart" style="left:10%">❤️</div>
+<div class="heart" style="left:30%; animation-delay:2s;">💖</div>
+<div class="heart" style="left:60%; animation-delay:4s;">💘</div>
+<div class="heart" style="left:80%; animation-delay:1s;">💕</div>
 
-<div id="book">
+<!-- 🎵 Romantic Music -->
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Page 1: Name -->
+<div id="namePage" class="box">
+    <h2>Enter Your Name 💌</h2>
+    <input type="text" id="nameInput" placeholder="Your Sweet Name">
+    <br>
+    <button onclick="goToDOB()">Next ➜</button>
+</div>
+
+<!-- Page 2: DOB -->
+<div id="dobPage" class="box" style="display:none;">
+    <h2>Enter Your DOB 🎂</h2>
+    <input type="date" id="dobInput">
+    <br>
+    <button onclick="startBook()">Open Surprise 🎁</button>
+</div>
+
+<!-- Valentine Book -->
+<div id="book" class="box">
+    <div id="bookName" style="font-weight:bold;color:#c9184a;"></div>
     <div class="dayTitle" id="dayTitle"></div>
     <div class="pageText" id="pageText"></div>
-    <div class="pageNumber" id="pageNumber"></div>
-    <button id="nextBtn">Turn the page, my love ❤️</button>
+    <button id="nextBtn">Next Page ❤️</button>
+</div>
+
+<script>
+const correctDOB = "1994-07-29";
+let userName = "";
+let currentPage = 0;
 </div>
 
 <script>
@@ -117,51 +138,55 @@ const pages = [
         day: "💖 My Valentine Wish",
         text: "Is Valentine’s Day par bas ek hi wish hai — har saal, har din, har pal tum meri Valentine raho My Love ❤️"
     },
-    {day:"🌹 Rose Day", text:"A rose for you, because your smile makes my world bloom."},
-    {day:"💍 Propose Day", text:"If loving you is a dream, I never want to wake up."},
-    {day:"🍫 Chocolate Day", text:"Life with you is sweeter than any chocolate."},
-    {day:"🧸 Teddy Day", text:"I wish I could hug you like a teddy bear."},
-    {day:"🤝 Promise Day", text:"I promise to stand by you forever."},
-    {day:"🤗 Hug Day", text:"One hug from you fixes everything."},
-    {day:"💋 Kiss Day", text:"A kiss from you is pure magic."},
-    {day:"❤️ Valentine’s Day", text:"You are my today, tomorrow, and forever."}
+
+const pages = [
+ {day:"💖 My Valentine Wish", text:"Har din tum meri Valentine raho ❤️"},
+ {day:"🌹 Rose Day", text:"Your smile makes my world bloom."},
+ {day:"💍 Propose Day", text:"I never want to wake up from loving you."},
+ {day:"🍫 Chocolate Day", text:"Life with you is sweeter than chocolate."},
+ {day:"🧸 Teddy Day", text:"I wish I could hug you right now."},
+ {day:"🤝 Promise Day", text:"I promise to stay forever."},
+ {day:"🤗 Hug Day", text:"One hug from you heals everything."},
+ {day:"💋 Kiss Day", text:"Your kiss is pure magic."},
+ {day:"❤️ Valentine’s Day", text:"You are my forever."}
 ];
 
-let currentPage = 0;
-
-function showPage() {
-    const title = document.getElementById("dayTitle");
-    const text = document.getElementById("pageText");
-    const btn = document.getElementById("nextBtn");
-
-    title.classList.remove("glow");
-    title.innerText = pages[currentPage].day;
-    text.innerText = pages[currentPage].text;
-    document.getElementById("pageNumber").innerText =
-        "Page " + (currentPage + 1) + " / " + pages.length;
-
-    if (currentPage === pages.length - 1) {
-        btn.innerText = "Stay with me forever 💍❤️";
-        title.classList.add("glow");
-    } else {
-        btn.innerText = "Turn the page, my love ❤️";
-    }
+function goToDOB(){
+    userName = document.getElementById("nameInput").value.trim();
+    if(userName===""){ alert("Please enter name 💖"); return; }
+    document.getElementById("namePage").style.display="none";
+    document.getElementById("dobPage").style.display="block";
 }
 
-function nextPage() {
-    if (currentPage < pages.length - 1) {
+function startBook(){
+    const dob = document.getElementById("dobInput").value;
+    if(dob !== correctDOB){ alert("Wrong DOB 😜"); return; }
+
+    document.getElementById("dobPage").style.display="none";
+    document.getElementById("book").style.display="block";
+    document.getElementById("bookName").innerText = "For " + userName + " ❤️";
+
+    // ▶️ Play music after user click
+    document.getElementById("bgMusic").play();
+
+    showPage();
+}
+
+function showPage(){
+    document.getElementById("dayTitle").innerText = pages[currentPage].day;
+    document.getElementById("pageText").innerText = pages[currentPage].text;
+}
+
+document.getElementById("nextBtn").addEventListener("click", function(){
+    if(currentPage < pages.length-1){
         currentPage++;
         showPage();
     } else {
-        document.getElementById("dayTitle").innerText = "💖 The End";
-        document.getElementById("pageText").innerText = "Valentine Week ends… but my love never will ❤️";
-        document.getElementById("pageNumber").innerText = "";
-        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("dayTitle").innerText="💖 The End";
+        document.getElementById("pageText").innerText="Valentine week ends… but my love never will ❤️";
+        this.style.display="none";
     }
-}
-
-document.getElementById("nextBtn").addEventListener("click", nextPage);
-window.onload = showPage;
+});
 </script>
 
 </body>
