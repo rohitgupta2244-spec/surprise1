@@ -1,92 +1,223 @@
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 💖</title>
-<link href="https://fonts.google.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<title>My Valentine Surprise ❤️</title>
+
+<!-- Romantic Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body {
-    margin:0;
-    font-family:sans-serif;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Floating Emojis */
+.emoji {
+    position: absolute;
+    font-size: 22px;
+    animation: float 6s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0.5); }
+    100% { transform: translateY(-10vh) scale(1.2); }
+}
+
+/* Name Screen */
+#loginBox {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e63956;
+}
+
+/* Love Book */
+#book {
+    display: none;
+    width: 340px;
+    height: 460px;
+    background: #fff0f6;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    animation: openBook 1s ease forwards;
+}
+
+@keyframes openBook {
+    from { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+    to { transform: scale(1) rotateY(0); opacity: 1; }
+}
+
+/* Front Cover Background */
+.cover {
+    background: url('https://i.imgur.com/3ZQ3Z4B.png') center/cover no-repeat;
+    height: 100%;
+    border-radius: 12px;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    height:100vh;
-    overflow:hidden;
     color:white;
-    text-align:center;
-}
-
-.card {
-    background: rgba(255,255,255,0.15);
-    padding: 25px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    width: 320px;
-}
-
-h1 {
+    text-shadow: 2px 2px 8px black;
     font-family: 'Great Vibes', cursive;
-    font-size: 36px;
 }
 
-p {
+.cover h1 {
+    font-size: 42px;
+    margin: 0;
+}
+
+.dayTitle {
+    font-size: 24px;
+    color: #b3003b;
+    font-weight: bold;
+    margin-top: 10px;
+    background: #ffd6e0;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.pageText {
     font-size: 18px;
+    color: #66001f;
+    margin-top: 60px;
+    min-height: 120px;
+    font-weight: 500;
 }
 
-.heart {
-    position:absolute;
-    font-size:22px;
-    animation:floatUp 8s linear infinite;
-    opacity:0.7;
-}
-@keyframes floatUp {
-    0%{transform:translateY(100vh);}
-    100%{transform:translateY(-10vh);}
+.pageNumber {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 14px;
+    color: #555;
 }
 </style>
 </head>
 
 <body>
 
-<script>
-for(let i=0;i<25;i++){
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="💖";
- h.style.left=Math.random()*100+"vw";
- h.style.animationDuration=(5+Math.random()*5)+"s";
- document.body.appendChild(h);
-}
-</script>
+<!-- Floating Emojis -->
+<div class="emoji" style="left:10%">❤️</div>
+<div class="emoji" style="left:30%; animation-delay:2s;">🌹</div>
+<div class="emoji" style="left:60%; animation-delay:4s;">💖</div>
+<div class="emoji" style="left:80%; animation-delay:1s;">💘</div>
 
-<div class="card">
-    <h1 id="title"></h1>
-    <p id="msg"></p>
-    <p id="dobText"></p>
+<!-- Name Input -->
+<div id="loginBox">
+    <h2>Enter Your Name 💌</h2>
+    <input type="text" id="nameInput" placeholder="Your Name">
+    <br>
+    <button onclick="checkName()">Open My Surprise 🎁</button>
+    <p id="error" style="color:red;"></p>
 </div>
 
+<!-- Love Book -->
+<div id="book">
+    <div id="coverPage" class="cover">
+        <h1>For Shweta ❤️</h1>
+        <p style="font-size:20px;">My Valentine Surprise</p>
+        <button onclick="startBook()">Open Book 📖</button>
+    </div>
+
+    <div id="contentPage" style="display:none;">
+        <div class="dayTitle" id="dayTitle"></div>
+        <div class="pageText" id="pageText"></div>
+        <div class="pageNumber" id="pageNumber"></div>
+        <button onclick="nextPage()">Next Page ➡️</button>
+    </div>
+</div>
+
+<!-- Romantic Music -->
+<audio id="bgMusic" src="romantic.mp3" loop></audio>
+
 <script>
-const url = new URLSearchParams(window.location.search);
-const name = url.get("to");
-const msg = url.get("msg");
-const dob = url.get("dob");
+const correctName = "shweta rathour";
 
-document.getElementById("title").innerText = "For " + name + " 💖";
-document.getElementById("msg").innerText = decodeURIComponent(msg);
+const pages = [
+    {day:"🌹 Rose Day", text:"A rose for you, because your smile makes my world bloom."},
+    {day:"💍 Propose Day", text:"If loving you is a dream, I never want to wake up."},
+    {day:"🍫 Chocolate Day", text:"Life with you is sweeter than any chocolate."},
+    {day:"🧸 Teddy Day", text:"I wish I could hug you like a teddy bear."},
+    {day:"🤝 Promise Day", text:"I promise to stand by you forever."},
+    {day:"🤗 Hug Day", text:"One hug from you fixes everything."},
+    {day:"💋 Kiss Day", text:"A kiss from you is pure magic."},
+    {day:"❤️ Valentine’s Day", text:"You are my today, tomorrow, and forever."}
+];
 
-if(dob){
-    document.getElementById("dobText").innerText = "Born on: " + dob;
+let currentPage = 0;
+
+function checkName() {
+    const input = document.getElementById("nameInput").value.toLowerCase().trim();
+    if (input === correctName) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("book").style.display = "block";
+        document.getElementById("bgMusic").play();
+    } else {
+        document.getElementById("error").innerText = "Only Shweta Rathour can open this 💖";
+    }
+}
+
+function startBook() {
+    document.getElementById("coverPage").style.display = "none";
+    document.getElementById("contentPage").style.display = "block";
+    showPage();
+}
+
+function showPage() {
+    document.getElementById("dayTitle").innerText = pages[currentPage].day;
+    document.getElementById("pageText").innerText = pages[currentPage].text;
+    document.getElementById("pageNumber").innerText = "Page " + (currentPage + 1) + " / " + pages.length;
+}
+
+function nextPage() {
+    if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage();
+    } else {
+        document.getElementById("dayTitle").innerText = "💖 The End";
+        document.getElementById("pageText").innerText = "Valentine Week ends… but my love never will ❤️";
+        document.getElementById("pageNumber").innerText = "";
+    }
 }
 </script>
 
 </body>
 </html>
-
-
-
-
